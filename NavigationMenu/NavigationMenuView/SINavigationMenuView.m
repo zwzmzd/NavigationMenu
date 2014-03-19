@@ -37,6 +37,10 @@
     self.menuContainer = view;
 }
 
+- (void)setTitle:(NSString *)title {
+    self.menuButton.title.text = title;
+}
+
 #pragma mark -
 #pragma mark Actions
 - (void)onHandleMenuTap:(id)sender

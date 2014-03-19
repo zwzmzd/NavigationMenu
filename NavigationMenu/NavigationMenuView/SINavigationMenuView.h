@@ -22,5 +22,6 @@
 
 - (id)initWithFrame:(CGRect)frame title:(NSString *)title;
 - (void)displayMenuInView:(UIView *)view;
+- (void)setTitle:(NSString *)title;
 
 @end
