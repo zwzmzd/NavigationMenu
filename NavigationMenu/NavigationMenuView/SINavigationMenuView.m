@@ -27,6 +27,7 @@
         self.menuButton = [[SIMenuButton alloc] initWithFrame:frame];
         self.menuButton.title.text = title;
         [self.menuButton addTarget:self action:@selector(onHandleMenuTap:) forControlEvents:UIControlEventTouchUpInside];
+        self.enabled = YES;
         [self addSubview:self.menuButton];
     }
     return self;
@@ -45,11 +46,13 @@
 #pragma mark Actions
 - (void)onHandleMenuTap:(id)sender
 {
+    if (!self.enabled) {
+        return;
+    }
+    
     if (self.menuButton.isActive) {
-        NSLog(@"On show");
         [self onShowMenu];
     } else {
-        NSLog(@"On hide");
         [self onHideMenu];
     }
 }
