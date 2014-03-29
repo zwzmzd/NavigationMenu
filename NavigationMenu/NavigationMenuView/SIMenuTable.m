@@ -33,88 +33,45 @@
         self.layer.backgroundColor = [UIColor color:[SIMenuConfiguration mainColor] withAlpha:0.0].CGColor;
         self.clipsToBounds = YES;
         
-        endFrame = self.bounds;
-        startFrame = endFrame;
-        startFrame.origin.y -= self.items.count*[SIMenuConfiguration itemCellHeight];
-        
-        self.table = [[UITableView alloc] initWithFrame:startFrame style:UITableViewStylePlain];
+        self.table = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
         self.table.delegate = self;
         self.table.dataSource = self;
         self.table.backgroundColor = [UIColor clearColor];
         self.table.separatorStyle = UITableViewCellSeparatorStyleNone;
         self.table.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        self.table.bounces = NO;
         
-        UIView *header = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f - self.table.bounds.size.height, [SIMenuConfiguration menuWidth], self.table.bounds.size.height)];
-        header.backgroundColor = [UIColor color:[SIMenuConfiguration itemsColor] withAlpha:[SIMenuConfiguration menuAlpha]];
-        header.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        [self.table addSubview:header];
-
+        [self.table reloadData];
+        [self addSubview:self.table];
+        
+        [self addFooter];
     }
     return self;
 }
 
-- (void)show
-{
-    [self addSubview:self.table];
-    if (!self.table.tableFooterView) {
-        [self addFooter];
-    }
-    [UIView animateWithDuration:[SIMenuConfiguration animationDuration] animations:^{
-        self.layer.backgroundColor = [UIColor color:[SIMenuConfiguration mainColor] withAlpha:[SIMenuConfiguration backgroundAlpha]].CGColor;
-        self.table.frame = endFrame;
-        self.table.contentOffset = CGPointMake(0, [SIMenuConfiguration bounceOffset]);
-    } completion:^(BOOL finished) {
-        [UIView animateWithDuration:[self bounceAnimationDuration] animations:^{
-            self.table.contentOffset = CGPointMake(0, 0);
-        }];
-    }];
-}
-
-- (void)hide
-{
-    [UIView animateWithDuration:[self bounceAnimationDuration] animations:^{
-        self.table.contentOffset = CGPointMake(0, [SIMenuConfiguration bounceOffset]);
-    } completion:^(BOOL finished) {
-        [UIView animateWithDuration:[SIMenuConfiguration animationDuration] animations:^{
-            self.layer.backgroundColor = [UIColor color:[SIMenuConfiguration mainColor] withAlpha:0.0].CGColor;
-            self.table.frame = startFrame;
-        } completion:^(BOOL finished) {
-//            [self.table deselectRowAtIndexPath:currentIndexPath animated:NO];
-            SIMenuCell *cell = (SIMenuCell *)[self.table cellForRowAtIndexPath:currentIndexPath];
-            [cell setSelected:NO withCompletionBlock:^{
-
-            }];
-            currentIndexPath = nil;
-            [self removeFooter];
-            [self.table removeFromSuperview];
-            [self removeFromSuperview];
-        }];
-    }];
-}
-
-- (float)bounceAnimationDuration
-{
-    float percentage = 28.57;
-    return [SIMenuConfiguration animationDuration]*percentage/100.0;
-}
-
 - (void)addFooter
 {
-    UIView *footer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [SIMenuConfiguration menuWidth], self.table.bounds.size.height - (self.items.count * [SIMenuConfiguration itemCellHeight]))];
+    UIView *footer = [[UIView alloc] initWithFrame:CGRectZero];
     self.table.tableFooterView = footer;
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onBackgroundTap:)];
     [footer addGestureRecognizer:tap];
 }
 
-- (void)removeFooter
-{
-    self.table.tableFooterView = nil;
-}
-
 - (void)onBackgroundTap:(id)sender
 {
     [self.menuDelegate didBackgroundTap];
+}
+
+- (void)layoutSubviews {
+    CGRect bounds = self.bounds;
+    self.table.frame = bounds;
+    
+    CGRect tableBounds = self.table.bounds;
+    self.table.tableFooterView.frame = CGRectMake(0.f,
+                                                  (self.items.count * [SIMenuConfiguration itemCellHeight]),
+                                                  tableBounds.size.width,
+                                                  tableBounds.size.height - (self.items.count * [SIMenuConfiguration itemCellHeight]));
 }
 
 - (void)dealloc

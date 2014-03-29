@@ -8,12 +8,13 @@
 
 #import "SINavigationMenuView.h"
 #import "SIMenuButton.h"
+#import "SIMenuTableWrapperView.h"
 #import "QuartzCore/QuartzCore.h"
 #import "SIMenuConfiguration.h"
 
 @interface SINavigationMenuView  ()
 @property (nonatomic, strong) SIMenuButton *menuButton;
-@property (nonatomic, strong) SIMenuTable *table;
+@property (nonatomic, strong) SIMenuTableWrapperView *tableWrapperView;
 @property (nonatomic, strong) UIView *menuContainer;
 @end
 
@@ -59,22 +60,14 @@
 
 - (void)onShowMenu
 {
-    if (!self.table) {
-        UIWindow *mainWindow = [[UIApplication sharedApplication] keyWindow];
-        CGRect frame = mainWindow.frame;
-        frame.origin.y += self.frame.size.height + [[UIApplication sharedApplication] statusBarFrame].size.height;
-        self.table = [[SIMenuTable alloc] initWithFrame:frame items:self.items];
-        self.table.menuDelegate = self;
-    }
-    [self.menuContainer addSubview:self.table];
+    [self.menuContainer addSubview:self.tableWrapperView];
     [self rotateArrow:M_PI];
-    [self.table show];
 }
 
 - (void)onHideMenu
 {
     [self rotateArrow:0];
-    [self.table hide];
+    [self.tableWrapperView removeFromSuperview];
 }
 
 - (void)rotateArrow:(float)degrees
@@ -97,6 +90,18 @@
 {
     self.menuButton.isActive = !self.menuButton.isActive;
     [self onHandleMenuTap:nil];
+}
+
+#pragma mark - setter && getter
+
+- (SIMenuTableWrapperView *)tableWrapperView {
+    if (_tableWrapperView == nil) {
+        CGRect frame = self.menuContainer.bounds;
+        
+        _tableWrapperView = [[SIMenuTableWrapperView alloc] initWithFrame:frame withItems:self.items];
+        _tableWrapperView.delegate = self;
+    }
+    return _tableWrapperView;
 }
 
 #pragma mark -
