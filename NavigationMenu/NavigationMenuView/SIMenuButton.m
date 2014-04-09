@@ -77,17 +77,6 @@
     self.spotlightGradientRef = nil;
 }
 
-#pragma mark - Drawing Override
-- (void)drawRect:(CGRect)rect
-{
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    CGGradientRef gradient = self.spotlightGradientRef;
-    float radius = self.spotlightEndRadius;
-    float startRadius = self.spotlightStartRadius;
-    CGContextDrawRadialGradient (context, gradient, self.spotlightCenter, startRadius, self.spotlightCenter, radius, kCGGradientDrawsAfterEndLocation);
-}
-
-
 #pragma mark - Factory Method
 
 + (CGGradientRef)newSpotlightGradient
