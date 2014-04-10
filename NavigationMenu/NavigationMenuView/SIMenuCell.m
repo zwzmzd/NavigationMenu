@@ -42,6 +42,14 @@
     self.lineView.frame = CGRectMake(10.f, bounds.size.height - 0.5f, bounds.size.width - 20.f, 0.5f);
 }
 
+- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
+    if (highlighted) {
+        self.textLabel.textColor = [SIMenuConfiguration highlightItemTextColor];
+    } else {
+        self.textLabel.textColor = [SIMenuConfiguration itemTextColor];
+    }
+}
+
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
     [super setSelected:selected animated:animated];
@@ -49,17 +57,8 @@
 
 - (void)setSelected:(BOOL)selected withCompletionBlock:(void (^)())completion
 {
-    float alpha = 0.0;
-    if (selected) {
-        alpha = 1.0;
-    } else {
-        alpha = 0.0;
-    }
-    [UIView animateWithDuration:[SIMenuConfiguration selectionSpeed] animations:^{
-        self.cellSelection.alpha = alpha;
-    } completion:^(BOOL finished) {
-        completion();
-    }];
+    self.textLabel.textColor = [SIMenuConfiguration highlightItemTextColor];
+    completion();
 }
 
 - (UIView *)lineView

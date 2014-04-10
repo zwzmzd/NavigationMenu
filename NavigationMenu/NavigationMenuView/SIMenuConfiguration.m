@@ -71,12 +71,16 @@
 
 + (float)selectionSpeed
 {
-    return 0.15;
+    return 2.f;
 }
 
 + (UIColor *)itemTextColor
 {
     return [UIColor colorWithRed:102.f / 255.f green:102.f / 255.f blue:102.f / 255.f alpha:1.f];
+}
+
++ (UIColor *)highlightItemTextColor {
+    return [UIColor colorWithRed:0x23 / 255.f green:0x8d / 255.f blue:0xd7 / 255.f alpha:1.f];
 }
 
 + (UIColor *)selectionColor

@@ -109,6 +109,7 @@
     
     cell.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.textLabel.text = [[self.items objectAtIndex:indexPath.row] objectForKey:@"name"];
     cell.imageView.image = [UIImage imageNamed:[[self.items objectAtIndex:indexPath.row] objectForKey:@"iconName"]];
     
@@ -119,21 +120,11 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    currentIndexPath = indexPath;
-    
-    SIMenuCell *cell = (SIMenuCell *)[tableView cellForRowAtIndexPath:indexPath];
-    [cell setSelected:YES withCompletionBlock:^{
-        [self.menuDelegate didSelectItemAtIndex:indexPath.row];
-    }];
-    
+    [self.menuDelegate didSelectItemAtIndex:indexPath.row];
 }
 
 - (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    SIMenuCell *cell = (SIMenuCell *)[tableView cellForRowAtIndexPath:indexPath];
-    [cell setSelected:NO withCompletionBlock:^{
-
-    }];
 }
 
 @end

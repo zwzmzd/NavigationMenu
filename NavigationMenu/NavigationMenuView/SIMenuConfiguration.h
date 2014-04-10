@@ -44,6 +44,7 @@
 
 //Menu item text color
 + (UIColor *)itemTextColor;
++ (UIColor *)highlightItemTextColor;
 
 //Selection color
 + (UIColor *)selectionColor;
