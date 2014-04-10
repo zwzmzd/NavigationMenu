@@ -19,7 +19,7 @@
 //Menu item height
 + (float)itemCellHeight
 {
-    return 44.0f;
+    return 45.f;
 }
 
 //Animation duration of menu appearence

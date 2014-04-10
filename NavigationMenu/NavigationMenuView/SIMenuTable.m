@@ -109,7 +109,7 @@
     
     cell.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     
-    cell.textLabel.text = [self.items objectAtIndex:indexPath.row];
+    cell.textLabel.text = [[self.items objectAtIndex:indexPath.row] objectForKey:@"name"];
     
     return cell;
 }
