@@ -24,39 +24,12 @@
     if (self) {
         self.contentView.backgroundColor = [UIColor color:[SIMenuConfiguration itemsColor] withAlpha:[SIMenuConfiguration menuAlpha]];
         self.textLabel.textColor = [SIMenuConfiguration itemTextColor];
-        self.textLabel.textAlignment = NSTextAlignmentCenter;
-        self.textLabel.shadowColor = [UIColor darkGrayColor];
-        self.textLabel.shadowOffset = CGSizeMake(0.0, -1.0);
+        self.textLabel.font = [UIFont boldSystemFontOfSize:18.f];
+        self.textLabel.textAlignment = NSTextAlignmentLeft;
         
         self.selectionStyle = UITableViewCellEditingStyleNone;
-        
-        self.cellSelection = [[SICellSelection alloc] initWithFrame:self.bounds andColor:[SIMenuConfiguration selectionColor]];
-        [self.cellSelection.layer setCornerRadius:6.0];
-        [self.cellSelection.layer setMasksToBounds:YES];
-        
-        self.cellSelection.alpha = 0.0;
-        [self.contentView insertSubview:self.cellSelection belowSubview:self.textLabel];
     }
     return self;
-}
-
-- (void)drawRect:(CGRect)rect {
-    [super drawRect:rect];
-    
-    CGContextRef ctx = UIGraphicsGetCurrentContext();
-    CGContextSetLineWidth(ctx, 2.0f);
-    
-    CGContextSetRGBStrokeColor(ctx, 0.0f, 0.0f, 0.0f, 1.0f);
-    CGContextMoveToPoint(ctx, 0, self.contentView.bounds.size.height);
-    CGContextAddLineToPoint(ctx, self.contentView.bounds.size.width, self.contentView.bounds.size.height);
-    CGContextStrokePath(ctx);
-    
-    CGContextSetRGBStrokeColor(ctx, 1.0f, 1.0f, 1.0f, 0.7f);
-        
-    CGContextMoveToPoint(ctx, 0, 0);
-    CGContextAddLineToPoint(ctx, self.contentView.bounds.size.width, 0);
-    CGContextStrokePath(ctx);
-    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

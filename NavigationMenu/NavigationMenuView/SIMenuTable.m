@@ -110,6 +110,7 @@
     cell.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     
     cell.textLabel.text = [[self.items objectAtIndex:indexPath.row] objectForKey:@"name"];
+    cell.imageView.image = [UIImage imageNamed:[[self.items objectAtIndex:indexPath.row] objectForKey:@"iconName"]];
     
     return cell;
 }
