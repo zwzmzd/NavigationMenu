@@ -47,4 +47,6 @@
 
 //Selection color
 + (UIColor *)selectionColor;
+
++ (UIColor *)separatorColor;
 @end
