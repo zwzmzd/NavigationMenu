@@ -10,6 +10,7 @@
 #import "SIMenuConfiguration.h"
 #import "UIColor+Extension.h"
 #import "SICellSelection.h"
+#import "UIImage+QDMailAdditions.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface SIMenuCell ()
@@ -45,8 +46,10 @@
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
     if (highlighted) {
         self.textLabel.textColor = [SIMenuConfiguration highlightItemTextColor];
+        self.imageView.image = [UIImage themeImageNamed:self.highlightIcon];
     } else {
         self.textLabel.textColor = [SIMenuConfiguration itemTextColor];
+        self.imageView.image = [UIImage themeImageNamed:self.normalIcon];
     }
 }
 

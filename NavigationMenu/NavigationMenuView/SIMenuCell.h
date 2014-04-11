@@ -10,4 +10,8 @@
 
 @interface SIMenuCell : UITableViewCell
 - (void)setSelected:(BOOL)selected withCompletionBlock:(void (^)())completion;
+
+@property (strong, nonatomic) NSString *normalIcon;
+@property (strong, nonatomic) NSString *highlightIcon;
+
 @end
