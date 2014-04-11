@@ -13,5 +13,6 @@
 
 @property (strong, nonatomic) NSString *normalIcon;
 @property (strong, nonatomic) NSString *highlightIcon;
+@property (assign, nonatomic) BOOL alwaysNeedHighlight;
 
 @end

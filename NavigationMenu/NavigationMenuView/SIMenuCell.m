@@ -25,7 +25,6 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         self.contentView.backgroundColor = [UIColor color:[SIMenuConfiguration itemsColor] withAlpha:[SIMenuConfiguration menuAlpha]];
-        self.textLabel.textColor = [SIMenuConfiguration itemTextColor];
         self.textLabel.font = [UIFont boldSystemFontOfSize:18.f];
         self.textLabel.textAlignment = NSTextAlignmentLeft;
         
@@ -44,7 +43,7 @@
 }
 
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
-    if (highlighted) {
+    if (highlighted || self.alwaysNeedHighlight) {
         self.textLabel.textColor = [SIMenuConfiguration highlightItemTextColor];
         self.imageView.image = [UIImage themeImageNamed:self.highlightIcon];
     } else {

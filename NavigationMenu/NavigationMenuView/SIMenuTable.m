@@ -20,6 +20,7 @@
 }
 @property (nonatomic, strong) UITableView *table;
 @property (nonatomic, strong) NSArray *items;
+
 @end
 
 @implementation SIMenuTable
@@ -45,6 +46,8 @@
         [self addSubview:self.table];
         
         [self addFooter];
+        
+        self.selectedIndex = 0;
     }
     return self;
 }
@@ -114,6 +117,12 @@
     cell.normalIcon = [[self.items objectAtIndex:indexPath.row] objectForKey:@"iconName"];
     cell.highlightIcon = [[self.items objectAtIndex:indexPath.row] objectForKey:@"highlightIconName"];
     
+    if (indexPath.row == self.selectedIndex) {
+        cell.alwaysNeedHighlight = YES;
+    } else {
+        cell.alwaysNeedHighlight = NO;
+    }
+    
     return cell;
 }
 
@@ -121,6 +130,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (self.selectedIndex != indexPath.row) {
+        self.selectedIndex = indexPath.row;
+    }
     [self.menuDelegate didSelectItemAtIndex:indexPath.row];
 }
 

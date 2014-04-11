@@ -19,6 +19,7 @@
 
 @property (nonatomic, weak) id <SINavigationMenuDelegate> delegate;
 @property (nonatomic, strong) NSArray *items;
+@property (nonatomic, assign) NSInteger initialSelectedIndex;
 @property (nonatomic, assign) BOOL enabled;
 
 - (id)initWithFrame:(CGRect)frame title:(NSString *)title;

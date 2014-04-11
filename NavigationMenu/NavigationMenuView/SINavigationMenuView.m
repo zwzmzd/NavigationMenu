@@ -100,6 +100,7 @@
         
         _tableWrapperView = [[SIMenuTableWrapperView alloc] initWithFrame:frame withItems:self.items];
         _tableWrapperView.delegate = self;
+        _tableWrapperView.initialSelectedIndex = self.initialSelectedIndex;
     }
     return _tableWrapperView;
 }

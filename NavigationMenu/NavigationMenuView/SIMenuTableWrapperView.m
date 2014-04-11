@@ -74,6 +74,11 @@
     self.table.menuDelegate = delegate;
 }
 
+- (void)setInitialSelectedIndex:(NSInteger)initialSelectedIndex {
+    _initialSelectedIndex = initialSelectedIndex;
+    self.table.selectedIndex = initialSelectedIndex;
+}
+
 - (UIView *)colorView {
     if (_colorView == nil) {
         _colorView = [[UIView alloc] initWithFrame:CGRectZero];

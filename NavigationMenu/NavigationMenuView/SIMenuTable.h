@@ -15,6 +15,7 @@
 
 @interface SIMenuTable : UIView <UITableViewDataSource, UITableViewDelegate>
 
+@property (nonatomic, assign) NSInteger selectedIndex;
 @property (nonatomic, weak) id <SIMenuDelegate> menuDelegate;
 
 - (id)initWithFrame:(CGRect)frame items:(NSArray *)items;

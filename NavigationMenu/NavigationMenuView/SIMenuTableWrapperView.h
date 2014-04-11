@@ -12,6 +12,7 @@
 
 @interface SIMenuTableWrapperView : UIView
 
+@property (nonatomic, assign) NSInteger initialSelectedIndex;
 @property (nonatomic, weak) id<SIMenuDelegate> delegate;
 
 - (id)initWithFrame:(CGRect)frame withItems:(NSArray *)items;
