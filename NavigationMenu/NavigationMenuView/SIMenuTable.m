@@ -12,6 +12,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "UIColor+Extension.h"
 #import "SICellSelection.h"
+#import "UIImage+QDMailAdditions.h"
 
 @interface SIMenuTable () {
     CGRect endFrame;
@@ -111,7 +112,8 @@
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.textLabel.text = [[self.items objectAtIndex:indexPath.row] objectForKey:@"name"];
-    cell.imageView.image = [UIImage imageNamed:[[self.items objectAtIndex:indexPath.row] objectForKey:@"iconName"]];
+    NSString *icon = [[self.items objectAtIndex:indexPath.row] objectForKey:@"iconName"];
+    cell.imageView.image = [UIImage themeImageNamed:icon];
     
     return cell;
 }
