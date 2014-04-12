@@ -40,6 +40,17 @@
     
     CGRect bounds = self.bounds;
     self.lineView.frame = CGRectMake(10.f, bounds.size.height - 0.5f, bounds.size.width - 20.f, 0.5f);
+    
+    // 用于调整cell内容的左边距
+    CGFloat offsetX = 0.f;
+    
+    CGRect imageViewFrame = self.imageView.frame;
+    imageViewFrame.origin.x += offsetX;
+    self.imageView.frame = imageViewFrame;
+    
+    CGRect textLabelFrame = self.textLabel.frame;
+    textLabelFrame.origin.x += offsetX;
+    self.textLabel.frame = textLabelFrame;
 }
 
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
