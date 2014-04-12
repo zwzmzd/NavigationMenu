@@ -13,11 +13,8 @@
 #import "UIColor+Extension.h"
 #import "SICellSelection.h"
 
-@interface SIMenuTable () {
-    CGRect endFrame;
-    CGRect startFrame;
-    NSIndexPath *currentIndexPath;
-}
+@interface SIMenuTable ()
+
 @property (nonatomic, strong) UITableView *table;
 @property (nonatomic, strong) NSArray *items;
 
@@ -42,9 +39,6 @@
         self.table.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         self.table.bounces = NO;
         
-        [self.table reloadData];
-        [self addSubview:self.table];
-        
         [self addFooter];
         
         self.selectedIndex = 0;
@@ -61,6 +55,39 @@
     [footer addGestureRecognizer:tap];
 }
 
+- (void)show
+{
+    [self.table reloadData];
+    [self addSubview:self.table];
+    
+    CGRect startFrame = self.bounds;
+    CGRect endFrame = self.bounds;
+    startFrame.origin.y -= self.items.count * [SIMenuConfiguration itemCellHeight];
+    
+    self.table.frame = startFrame;
+    [UIView animateWithDuration:[SIMenuConfiguration animationDuration] animations:^{
+        self.table.frame = endFrame;
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.2 animations:^{
+            self.table.contentOffset = CGPointMake(0, 0);
+        }];
+    }];
+}
+
+- (void)hide:(void (^)())completion {
+    CGRect endFrame = self.bounds;
+    endFrame.origin.y -= self.items.count * [SIMenuConfiguration itemCellHeight];
+
+    [UIView animateWithDuration:[SIMenuConfiguration animationDuration] animations:^{
+        self.table.frame = endFrame;
+    } completion:^(BOOL finished) {
+        if (completion) {
+            [self.table removeFromSuperview];
+            completion();
+        }
+    }];
+}
+
 - (void)onBackgroundTap:(id)sender
 {
     [self.menuDelegate didBackgroundTap];
@@ -68,13 +95,11 @@
 
 - (void)layoutSubviews {
     CGRect bounds = self.bounds;
-    self.table.frame = bounds;
     
-    CGRect tableBounds = self.table.bounds;
     self.table.tableFooterView.frame = CGRectMake(0.f,
                                                   (self.items.count * [SIMenuConfiguration itemCellHeight]),
-                                                  tableBounds.size.width,
-                                                  tableBounds.size.height - (self.items.count * [SIMenuConfiguration itemCellHeight]));
+                                                  bounds.size.width,
+                                                  bounds.size.height - (self.items.count * [SIMenuConfiguration itemCellHeight]));
 }
 
 - (void)dealloc

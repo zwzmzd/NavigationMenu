@@ -33,6 +33,8 @@
         
         [self bringSubviewToFront:self.backgroundTapView];
         [self bringSubviewToFront:self.table];
+        
+        [self layoutSubviews];
     }
     return self;
 }
@@ -52,6 +54,19 @@
     
     self.colorView.frame = bounds;
     self.table.frame = bounds;
+}
+
+- (void)show {
+    [self.table show];
+}
+
+- (void)hide:(void (^)())completion {
+    [self.table hide:^{
+        [self removeFromSuperview];
+        if (completion) {
+            completion();
+        }
+    }];
 }
 
 - (void)_handleTap {

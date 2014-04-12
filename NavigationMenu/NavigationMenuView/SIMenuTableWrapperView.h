@@ -17,4 +17,7 @@
 
 - (id)initWithFrame:(CGRect)frame withItems:(NSArray *)items;
 
+- (void)show;
+- (void)hide:(void (^)())completion;
+
 @end
