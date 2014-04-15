@@ -55,7 +55,7 @@
     [footer addGestureRecognizer:tap];
 }
 
-- (void)show
+- (void)show:(void (^)())animation
 {
     [self.table reloadData];
     [self addSubview:self.table];
@@ -67,6 +67,9 @@
     self.table.frame = startFrame;
     [UIView animateWithDuration:[SIMenuConfiguration animationDuration] animations:^{
         self.table.frame = endFrame;
+        if (animation) {
+            animation();
+        }
     } completion:^(BOOL finished) {
         [UIView animateWithDuration:0.2 animations:^{
             self.table.contentOffset = CGPointMake(0, 0);
@@ -74,12 +77,15 @@
     }];
 }
 
-- (void)hide:(void (^)())completion {
+- (void)hide:(void (^)())completion animation:(void (^)())animation {
     CGRect endFrame = self.bounds;
     endFrame.origin.y -= self.items.count * [SIMenuConfiguration itemCellHeight];
 
     [UIView animateWithDuration:[SIMenuConfiguration animationDuration] animations:^{
         self.table.frame = endFrame;
+        if (animation) {
+            animation();
+        }
     } completion:^(BOOL finished) {
         if (completion) {
             [self.table removeFromSuperview];

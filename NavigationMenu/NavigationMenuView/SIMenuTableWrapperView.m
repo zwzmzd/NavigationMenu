@@ -7,6 +7,7 @@
 //
 
 #import "SIMenuTableWrapperView.h"
+#import "SIMenuConfiguration.h"
 #import "SIMenuTable.h"
 
 @interface SIMenuTableWrapperView()
@@ -57,15 +58,22 @@
 }
 
 - (void)show {
-    [self.table show];
+    self.colorView.alpha = 0.f;
+    __weak typeof(self) wself = self;
+    [self.table show:^{
+        wself.colorView.alpha = [SIMenuConfiguration backgroundAlpha];
+    }];
 }
 
 - (void)hide:(void (^)())completion {
+    __weak typeof(self) wself = self;
     [self.table hide:^{
         [self removeFromSuperview];
         if (completion) {
             completion();
         }
+    } animation:^{
+        wself.colorView.alpha = 0.f;
     }];
 }
 
@@ -97,7 +105,7 @@
 - (UIView *)colorView {
     if (_colorView == nil) {
         _colorView = [[UIView alloc] initWithFrame:CGRectZero];
-        _colorView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:.6];
+        _colorView.backgroundColor = [UIColor blackColor];
     }
     return _colorView;
 }

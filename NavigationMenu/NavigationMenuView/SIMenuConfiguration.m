@@ -31,7 +31,7 @@
 //Menu substrate alpha value
 + (float)backgroundAlpha
 {
-    return 0.6;
+    return 0.4f;
 }
 
 //Menu alpha value
