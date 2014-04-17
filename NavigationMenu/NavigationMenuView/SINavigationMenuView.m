@@ -44,6 +44,12 @@
     if (_tableWrapperView == nil) {
         CGRect frame = self.menuContainer.bounds;
         
+        if (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_6_1) {
+            // iOS7上不要覆盖状态栏，否则模拟器可能会出现显示问题
+            frame.origin.y += 20.f;
+            frame.size.height -= 20.f;
+        }
+        
         _tableWrapperView = [[SIMenuTableWrapperView alloc] initWithFrame:frame withItems:self.items];
         _tableWrapperView.delegate = self;
         _tableWrapperView.initialSelectedIndex = self.initialSelectedIndex;
@@ -117,6 +123,7 @@
     self.items = nil;
     self.menuButton = nil;
     self.menuContainer = nil;
+    NSLog(@"[dealloc] %@", self.class);
 }
 
 @end

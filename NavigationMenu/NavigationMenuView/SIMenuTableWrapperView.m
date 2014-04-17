@@ -44,12 +44,7 @@
     CGRect bounds = self.bounds;
     self.backgroundTapView.frame = bounds;
     
-    CGFloat topBarHeight;
-    if (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_6_1) {
-        topBarHeight = 64.f;
-    } else {
-        topBarHeight = 44.f;
-    }
+    CGFloat topBarHeight = 44.f;
     bounds.origin.y += topBarHeight;
     bounds.size.height -= topBarHeight;
     
