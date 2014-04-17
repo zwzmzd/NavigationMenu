@@ -52,6 +52,7 @@
 
 - (void)setTitle:(NSString *)title {
     self.menuButton.title.text = title;
+    [self.menuButton layoutSubviews];
 }
 
 #pragma mark -
