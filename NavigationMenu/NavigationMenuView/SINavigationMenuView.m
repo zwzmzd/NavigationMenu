@@ -123,7 +123,6 @@
     self.items = nil;
     self.menuButton = nil;
     self.menuContainer = nil;
-    NSLog(@"[dealloc] %@", self.class);
 }
 
 @end
