@@ -55,7 +55,7 @@
 //Distance between Title and arrow image
 + (float)arrowPadding
 {
-    return 13.0;
+    return 8.f;
 }
 
 //Items color in menu
