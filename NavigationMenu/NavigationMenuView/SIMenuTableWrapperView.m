@@ -113,6 +113,11 @@
                                                         initWithTarget:self
                                                         action:@selector(_handleTap)];
         [_backgroundTapView addGestureRecognizer:tapGestureRecognizer];
+        
+        // 用于屏蔽用户在下拉菜单上右划切folder，SIMenuTable中也有一处需要添加
+        // 此处用于忽略标题栏的滑动事件
+        UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:nil];
+        [_backgroundTapView addGestureRecognizer:panGestureRecognizer];
     }
     return _backgroundTapView;
 }

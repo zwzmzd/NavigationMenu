@@ -41,6 +41,11 @@
         
         [self addFooter];
         
+        // 用于屏蔽用户在下拉菜单上右划切folder，SIMenuTableWrapperView中也有一处需要添加
+        // 此处用于忽略标题栏下部的滑动事件
+        UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:nil];
+        [self addGestureRecognizer:pan];
+        
         self.selectedIndex = 0;
     }
     return self;
