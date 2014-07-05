@@ -54,9 +54,11 @@
 }
 
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
-    if (highlighted || self.alwaysNeedHighlight) {
-        self.textLabel.textColor = [SIMenuConfiguration highlightItemTextColor];
-        self.imageView.image = [UIImage themeImageNamed:self.highlightIcon];
+    if (self.isSelected) {
+        self.textLabel.textColor = [SIMenuConfiguration selectedItemTextColor];
+        self.imageView.image = [UIImage themeImageNamed:self.selectedIcon];
+    } else if (highlighted) {
+        
     } else {
         self.textLabel.textColor = [SIMenuConfiguration itemTextColor];
         self.imageView.image = [UIImage themeImageNamed:self.normalIcon];
@@ -70,7 +72,7 @@
 
 - (void)setSelected:(BOOL)selected withCompletionBlock:(void (^)())completion
 {
-    self.textLabel.textColor = [SIMenuConfiguration highlightItemTextColor];
+    self.textLabel.textColor = [SIMenuConfiguration selectedItemTextColor];
     completion();
 }
 

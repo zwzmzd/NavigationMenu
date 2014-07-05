@@ -151,12 +151,12 @@
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.textLabel.text = [[self.items objectAtIndex:indexPath.row] objectForKey:@"name"];
     cell.normalIcon = [[self.items objectAtIndex:indexPath.row] objectForKey:@"iconName"];
-    cell.highlightIcon = [[self.items objectAtIndex:indexPath.row] objectForKey:@"highlightIconName"];
+    cell.selectedIcon = [[self.items objectAtIndex:indexPath.row] objectForKey:@"selectedIconName"];
     
     if (indexPath.row == self.selectedIndex) {
-        cell.alwaysNeedHighlight = YES;
+        cell.isSelected = YES;
     } else {
-        cell.alwaysNeedHighlight = NO;
+        cell.isSelected = NO;
     }
     
     return cell;

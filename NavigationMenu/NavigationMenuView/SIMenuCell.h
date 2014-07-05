@@ -12,7 +12,7 @@
 - (void)setSelected:(BOOL)selected withCompletionBlock:(void (^)())completion;
 
 @property (strong, nonatomic) NSString *normalIcon;
-@property (strong, nonatomic) NSString *highlightIcon;
-@property (assign, nonatomic) BOOL alwaysNeedHighlight;
+@property (strong, nonatomic) NSString *selectedIcon;
+@property (assign, nonatomic) BOOL isSelected;
 
 @end
