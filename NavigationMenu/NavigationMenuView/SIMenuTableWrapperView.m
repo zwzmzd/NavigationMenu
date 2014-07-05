@@ -72,9 +72,16 @@
     }];
 }
 
-- (void)_handleTap {
-    if (self.delegate) {
-        [self.delegate didBackgroundTap];
+- (void)_handleTap:(UITapGestureRecognizer *)recognizer {
+    // 扩大第一行点击区域， 因为内部的tableView上部无法被点击
+    CGPoint point = [recognizer locationInView:self];
+    if (point.y > 41.f) {
+        self.table.selectedIndex = 0;
+        [self.delegate didSelectItemAtIndex:0];
+    } else {
+        if (self.delegate) {
+            [self.delegate didBackgroundTap];
+        }
     }
 }
 
@@ -111,7 +118,7 @@
 
         UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc]
                                                         initWithTarget:self
-                                                        action:@selector(_handleTap)];
+                                                        action:@selector(_handleTap:)];
         [_backgroundTapView addGestureRecognizer:tapGestureRecognizer];
         
         // 用于屏蔽用户在下拉菜单上右划切folder，SIMenuTable中也有一处需要添加
