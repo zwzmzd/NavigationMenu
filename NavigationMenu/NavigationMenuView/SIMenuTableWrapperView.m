@@ -76,8 +76,14 @@
     // 扩大第一行点击区域， 因为内部的tableView上部无法被点击
     CGPoint point = [recognizer locationInView:self];
     if (point.y > 41.f) {
-        self.table.selectedIndex = 0;
-        [self.delegate didSelectItemAtIndex:0];
+        UITableView *tableView = self.table.table;
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+        
+        // 触发高亮
+        UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+        cell.highlighted = YES;
+        
+        [tableView.delegate tableView:tableView didSelectRowAtIndexPath:indexPath];
     } else {
         if (self.delegate) {
             [self.delegate didBackgroundTap];

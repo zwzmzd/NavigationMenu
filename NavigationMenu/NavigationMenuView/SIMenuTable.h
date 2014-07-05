@@ -17,6 +17,7 @@
 
 @property (nonatomic, assign) NSInteger selectedIndex;
 @property (nonatomic, weak) id <SIMenuDelegate> menuDelegate;
+@property (nonatomic, strong) UITableView *table;
 
 - (id)initWithFrame:(CGRect)frame items:(NSArray *)items;
 - (void)show:(void (^)())animation;

@@ -7,6 +7,7 @@
 //
 
 #import "SIMenuConfiguration.h"
+#import "UIColor+Extension.h"
 
 @implementation SIMenuConfiguration
 //Menu width
@@ -72,6 +73,18 @@
 + (float)selectionSpeed
 {
     return 2.f;
+}
+
++ (UIColor *)ordinaryMenuCellBackgroundColor {
+    return [UIColor color:[SIMenuConfiguration itemsColor] withAlpha:[SIMenuConfiguration menuAlpha]];
+}
+
++ (UIColor *)highlightBackgroundColor {
+    return [SIMenuConfiguration selectedItemTextColor];
+}
+
++ (UIColor *)highlightItemTextColor {
+    return [UIColor whiteColor];
 }
 
 + (UIColor *)itemTextColor

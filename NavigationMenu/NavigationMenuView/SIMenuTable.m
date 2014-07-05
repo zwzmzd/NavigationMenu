@@ -15,7 +15,6 @@
 
 @interface SIMenuTable ()
 
-@property (nonatomic, strong) UITableView *table;
 @property (nonatomic, strong) NSArray *items;
 
 @end
@@ -152,12 +151,14 @@
     cell.textLabel.text = [[self.items objectAtIndex:indexPath.row] objectForKey:@"name"];
     cell.normalIcon = [[self.items objectAtIndex:indexPath.row] objectForKey:@"iconName"];
     cell.selectedIcon = [[self.items objectAtIndex:indexPath.row] objectForKey:@"selectedIconName"];
+    cell.highlightIcon = [[self.items objectAtIndex:indexPath.row] objectForKey:@"highlightIconName"];
     
     if (indexPath.row == self.selectedIndex) {
         cell.isSelected = YES;
     } else {
         cell.isSelected = NO;
     }
+    cell.bypassUnhighligtCallback = NO;
     
     return cell;
 }

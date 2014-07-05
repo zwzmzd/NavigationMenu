@@ -42,6 +42,9 @@
 //Item selection animation speed
 + (float)selectionSpeed;
 
++ (UIColor *)ordinaryMenuCellBackgroundColor;
++ (UIColor *)highlightBackgroundColor;
++ (UIColor *)highlightItemTextColor;
 //Menu item text color
 + (UIColor *)itemTextColor;
 + (UIColor *)selectedItemTextColor;

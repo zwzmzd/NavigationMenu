@@ -24,13 +24,13 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        self.contentView.backgroundColor = [UIColor color:[SIMenuConfiguration itemsColor] withAlpha:[SIMenuConfiguration menuAlpha]];
+        self.contentView.backgroundColor = [SIMenuConfiguration ordinaryMenuCellBackgroundColor];
         self.textLabel.font = [UIFont boldSystemFontOfSize:18.f];
         self.textLabel.textAlignment = NSTextAlignmentLeft;
         
         [self.contentView addSubview:self.lineView];
         
-        self.selectionStyle = UITableViewCellEditingStyleNone;
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     return self;
 }
@@ -54,26 +54,24 @@
 }
 
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
-    if (self.isSelected) {
+    // 在菜单的每项被点击之后，这个函数会被highlightRowAtIndexPath和unhighlightRowAtIndexPath各调用一次
+    // 导致界面不能正确地高亮
+    // 所以使用bypassUnhighligtCallback变量来忽略第二次调用，这个变量在cellForIndexPath中会被设置为NO
+    if (highlighted || self.bypassUnhighligtCallback) {
+        self.textLabel.textColor = [SIMenuConfiguration highlightItemTextColor];
+        self.imageView.image = [UIImage themeImageNamed:self.highlightIcon];
+        self.contentView.backgroundColor = [SIMenuConfiguration highlightBackgroundColor];
+        
+        self.bypassUnhighligtCallback = YES;
+    } else if (self.isSelected) {
         self.textLabel.textColor = [SIMenuConfiguration selectedItemTextColor];
         self.imageView.image = [UIImage themeImageNamed:self.selectedIcon];
-    } else if (highlighted) {
-        
+        self.contentView.backgroundColor = [SIMenuConfiguration ordinaryMenuCellBackgroundColor];
     } else {
         self.textLabel.textColor = [SIMenuConfiguration itemTextColor];
         self.imageView.image = [UIImage themeImageNamed:self.normalIcon];
+        self.contentView.backgroundColor = [SIMenuConfiguration ordinaryMenuCellBackgroundColor];
     }
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated
-{
-    [super setSelected:selected animated:animated];
-}
-
-- (void)setSelected:(BOOL)selected withCompletionBlock:(void (^)())completion
-{
-    self.textLabel.textColor = [SIMenuConfiguration selectedItemTextColor];
-    completion();
 }
 
 - (UIView *)lineView
