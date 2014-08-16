@@ -170,6 +170,7 @@
     if (self.selectedIndex != indexPath.row) {
         self.selectedIndex = indexPath.row;
     }
+    // 此处的MenuDelegate实际上是SINavigationMenuView，其负责隐藏窗口并调用真正的处理函数
     [self.menuDelegate didSelectItemAtIndex:indexPath.row];
 }
 
