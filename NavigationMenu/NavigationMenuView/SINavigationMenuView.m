@@ -120,6 +120,10 @@
 #pragma mark Memory management
 - (void)dealloc
 {
+    if (self.tableWrapperView) {
+        [self.tableWrapperView removeFromSuperview];
+    }
+    
     self.items = nil;
     self.menuButton = nil;
     self.menuContainer = nil;
